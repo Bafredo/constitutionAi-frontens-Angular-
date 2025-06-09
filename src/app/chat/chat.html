@@ -1,0 +1,75 @@
+<div class="flex flex-col h-screen w-full mx-auto border border-gray-200 shadow-xl overflow-hidden">
+  <!-- Chat Header -->
+  <header class="bg-gradient-to-r from-blue-600 to-blue-500 text-white p-4 text-center font-semibold text-lg shadow">
+    🇰🇪 Kenyan Constitution Chatbot
+  </header>
+
+  <!-- Messages container -->
+  <div
+    #messagesContainer
+    class="messages-container flex-1 overflow-y-auto px-4 py-3 space-y-4 bg-gray-50 scroll-smooth"
+  >
+    <div
+      *ngFor="let message of messages"
+      class="flex"
+      [ngClass]="{ 'justify-end': message.isUser }"
+    >
+      <div
+        class="max-w-xs px-4 py-2 rounded-2xl shadow-sm transition"
+        [ngClass]="{
+          'bg-blue-600 text-white rounded-br-none': message.isUser,
+          'bg-white text-gray-800 rounded-bl-none border': !message.isUser
+        }"
+      >
+        <div [innerHTML]="formatMessage(message.text)"></div>
+        <div
+          class="text-xs mt-1 opacity-60"
+          [ngClass]="{
+            'text-blue-100': message.isUser,
+            'text-gray-500': !message.isUser
+          }"
+        >
+          {{ message.timestamp | date: 'shortTime' }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Typing indicator -->
+    <div *ngIf="isBotTyping" class="flex justify-start">
+      <div class="bg-white text-gray-800 px-4 py-2 rounded-xl flex items-center gap-2 border shadow-sm">
+        <div class="flex space-x-1">
+          <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+          <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:.2s]"></div>
+          <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:.4s]"></div>
+        </div>
+        <span class="text-sm font-medium">Typing...</span>
+      </div>
+    </div>
+
+    <!-- Error message -->
+    <div *ngIf="errorMessage" class="text-red-500 text-center p-2 text-sm font-medium">
+      {{ errorMessage }}
+    </div>
+  </div>
+
+  <!-- Input area -->
+  <form (ngSubmit)="sendMessage()" class="flex gap-2 p-3 border-t bg-white">
+    <input
+      type="text"
+      name="message"
+      [(ngModel)]="userInput"
+      placeholder="Ask about the Kenyan Constitution..."
+      class="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition disabled:opacity-50"
+      autocomplete="off"
+      required
+      [disabled]="isBotTyping"
+    />
+    <button
+      type="submit"
+      class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition disabled:opacity-50"
+      [disabled]="!userInput.trim() || isBotTyping"
+    >
+      Send
+    </button>
+  </form>
+</div>
