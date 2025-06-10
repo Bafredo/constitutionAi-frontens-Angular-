@@ -15,7 +15,7 @@ export interface UserResponse{
   providedIn: 'root'
 })
 export class Validate {
-  private apiUrl = 'http://localhost:8080/api/users/auth/authenticate';
+  private apiUrl = 'https://constitutuionai-backend.onrender.com/api/users/auth/authenticate';
 
   constructor(private http: HttpClient) {}
 

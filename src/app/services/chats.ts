@@ -21,7 +21,7 @@ interface ChatMessage {
 })
 export class Chats {
 
-  private apiUrl = 'http://localhost:8080/api/chat/all'; 
+  private apiUrl = 'https://constitutuionai-backend.onrender.com/api/chat/all'; 
 
   constructor(private http: HttpClient) {}
 
@@ -35,7 +35,7 @@ export class Chats {
     return this.http.get<ChatDto[]>(this.apiUrl, { headers });
   }
   getMessages(chatId : string | null):Observable<ChatMessage[]>{
-    var apiUrl : string = 'http://localhost:8080/api/chat/messages/'+chatId
+    var apiUrl : string = 'https://constitutuionai-backend.onrender.com/api/chat/messages/'+chatId
     const token = localStorage.getItem('kenyanConstitutionChatHistoryToken');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
