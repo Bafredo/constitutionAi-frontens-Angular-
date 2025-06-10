@@ -12,7 +12,7 @@ export interface BotResponse {
 })
 export class ChatbotService {
 
-  private apiUrl = 'https://constitutuionai-backend.onrender.com/api/constitution/ask'; 
+  private apiUrl = 'https://0115-197-248-74-74.ngrok-free.app/api/constitution/ask'; 
 
   constructor(private http: HttpClient) {}
 

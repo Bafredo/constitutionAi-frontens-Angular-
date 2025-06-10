@@ -15,7 +15,7 @@ export interface UserResponse{
   providedIn: 'root'
 })
 export class Validate {
-  private apiUrl = 'https://constitutuionai-backend.onrender.com/api/users/auth/authenticate';
+  private apiUrl = 'https://0115-197-248-74-74.ngrok-free.app/api/users/auth/authenticate';
 
   constructor(private http: HttpClient) {}
 
