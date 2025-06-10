@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 import { ChatComponent } from './chat/chat';
 import { Picker } from './chatlist/picker/picker';
-import { Auth } from './auth/auth';
+import { AuthComponent } from './auth/auth';
 
 export const routes: Routes = [
-  { path: 'chat', component: ChatComponent },
+  { path: 'chat/:id', component: ChatComponent },
   { path: '', component : Picker}, 
-   { path: 'auth', component : Auth}, 
+   { path: 'auth', component : AuthComponent}, 
 ];

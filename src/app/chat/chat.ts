@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ChatbotService } from '../services/chatbot';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Chats } from '../services/chats';
 
 interface ChatMessage {
   text: string;
@@ -24,21 +26,30 @@ export class ChatComponent implements AfterViewChecked, OnInit {
   messages: ChatMessage[] = [];
   isBotTyping: boolean = false;
   errorMessage: string | null = null;
+  chatId: string | null = null;
 
   constructor(
     private sanitizer: DomSanitizer,
-    private chatbotService: ChatbotService
+    private chatbotService: ChatbotService,
+    private route: ActivatedRoute,
+    private chatService : Chats,
+    private router: Router
   ) {}
 
   ngOnInit() {
+    this.chatId = this.route.snapshot.paramMap.get('id');
     const savedChat = localStorage.getItem('kenyanConstitutionChatHistory');
-    if (savedChat) {
+    if(this.chatId != "0"){this.chatService.getMessages(this.chatId).subscribe({
+      next : (data)=>{
+          this.messages = data
+      },
+      error : (err)=>{
+        if (savedChat) {
       this.messages = JSON.parse(savedChat);
-    } else {
-      this.addBotMessage(
-        'Hello! I can help answer questions about the Kenyan Constitution. What would you like to know?'
-      );
-    }
+    } 
+      }
+    })}
+    
   }
 
   ngAfterViewChecked() {
@@ -76,9 +87,13 @@ export class ChatComponent implements AfterViewChecked, OnInit {
     this.isBotTyping = true;
     this.errorMessage = null;
 
-    this.chatbotService.sendMessage(userInput).subscribe({
+    this.chatbotService.sendMessage(userInput,this.chatId).subscribe({
       next: (response) => {
         this.addBotMessage(response.reply);
+        if(this.chatId = "0"){
+          this.chatId = response.chatId
+          this.router.navigate(['/chat',this.chatId])
+        }
         this.isBotTyping = false;
       },
       error: (error) => {

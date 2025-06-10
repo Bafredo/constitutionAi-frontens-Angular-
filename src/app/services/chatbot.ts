@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 export interface BotResponse {
   reply: string;
+  chatId:string;
 }
 
 @Injectable({
@@ -15,9 +16,18 @@ export class ChatbotService {
 
   constructor(private http: HttpClient) {}
 
-sendMessage(message: string): Observable<BotResponse> {
-  const payload = { question: message };
-  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+sendMessage(message: string, chatid: string | null): Observable<BotResponse> {
+  let payload: { question: string; chatId?: string | null } = { question: message };
+  if (chatid) {
+    payload.chatId = chatid;
+  }
+
+  
+  const token = localStorage.getItem('kenyanConstitutionChatHistoryToken');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}` 
+    });
   return this.http.post<BotResponse>(this.apiUrl, payload, { headers });
 }
 }

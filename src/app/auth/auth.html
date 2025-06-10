@@ -1,10 +1,35 @@
 <div class="w-full h-[100vh] flex justify-center items-center">
-    <div class="bg-slate-200 w-fit h-fit flex flex-col p-9 rounded-2xl ">
-        <h1 class="font-bold text-[24px] text-center mb-8">Login</h1>
-        <label for="Username">Username</label>
-        <input type="text" class="border rounded-xl mb-4 p-2"/>
-        <label for="Password">Password</label>
-        <input type="password" class="border rounded-xl mb-4 p-2">
-        <button class="bg-gray-500 rounded px-2 align-center">Login</button>
+  <form (ngSubmit)="login()" #loginForm="ngForm" class="bg-gray-200 w-fit h-fit flex flex-col p-9 rounded-2xl">
+    <h1 class="font-bold text-[24px] text-center mb-8">Login</h1>
+
+    <label for="username" class="mb-1 font-medium">Username</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      class="border rounded-xl mb-4 p-1.5"
+      [(ngModel)]="username"
+      required
+    />
+
+    <label for="password" class="mb-1 font-medium">Password</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      class="border rounded-xl mb-4 p-1.5"
+      [(ngModel)]="password"
+      required
+    />
+
+    <div class="flex justify-center">
+      <button
+        type="submit"
+        class="bg-white rounded px-4 py-2 w-[70%] font-bold hover:bg-gray-300 transition"
+        [disabled]="!loginForm.form.valid"
+      >
+        Login
+      </button>
     </div>
+  </form>
 </div>
