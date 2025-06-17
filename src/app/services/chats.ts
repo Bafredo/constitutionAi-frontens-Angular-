@@ -21,7 +21,7 @@ interface ChatMessage {
 })
 export class Chats {
 
-  private apiUrl = 'https://0115-197-248-74-74.ngrok-free.app/api/chat/all'; 
+  private apiUrl = 'https://constitution-71f9fa9ad6e8.herokuapp.com/api/chat/all'; 
 
   constructor(private http: HttpClient) {}
 
@@ -35,7 +35,7 @@ export class Chats {
     return this.http.get<ChatDto[]>(this.apiUrl, { headers });
   }
   getMessages(chatId : string | null):Observable<ChatMessage[]>{
-    var apiUrl : string = 'https://0115-197-248-74-74.ngrok-free.appapi/chat/messages/'+chatId
+    var apiUrl : string = 'https://constitution-71f9fa9ad6e8.herokuapp.com/chat/messages/'+chatId
     const token = localStorage.getItem('kenyanConstitutionChatHistoryToken');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

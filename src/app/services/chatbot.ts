@@ -12,7 +12,7 @@ export interface BotResponse {
 })
 export class ChatbotService {
 
-  private apiUrl = 'https://0115-197-248-74-74.ngrok-free.app/api/constitution/ask'; 
+  private apiUrl = 'https://constitution-71f9fa9ad6e8.herokuapp.com/api/constitution/ask'; 
 
   constructor(private http: HttpClient) {}
 

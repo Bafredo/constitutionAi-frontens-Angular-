@@ -15,7 +15,7 @@ export interface UserResponse{
   providedIn: 'root'
 })
 export class Validate {
-  private apiUrl = 'https://0115-197-248-74-74.ngrok-free.app/api/users/auth/authenticate';
+  private apiUrl = 'https://constitution-71f9fa9ad6e8.herokuapp.com/api/users/auth/authenticate';
 
   constructor(private http: HttpClient) {}
 
